@@ -25,6 +25,9 @@ type Logger struct {
 	// formatters for examples.
 	Formatter Formatter
 
+	//write file name
+	LoggerType string
+
 	// Flag for whether to log caller info (off by default)
 	ReportCaller bool
 
@@ -75,15 +78,26 @@ func (mw *MutexWrap) Disable() {
 //    }
 //
 // It's recommended to make this a global instance called `log`.
-func New() *Logger {
-	return &Logger{
+func New(filetype ...string) *Logger {
+	var file string
+	if len(filetype) > 0 {
+		file = filetype[0]
+	}
+
+	log := &Logger{
 		Out:          os.Stderr,
 		Formatter:    new(TextFormatter),
 		Hooks:        make(LevelHooks),
 		Level:        InfoLevel,
 		ExitFunc:     os.Exit,
 		ReportCaller: false,
+		LoggerType:   file,
 	}
+	/*调用函数*/
+	log.ReportCaller = true
+	/*使用json解析 自带的只有两种样式logrus.JSONFormatter{}和logrus.TextFormatter{}*/
+	log.Formatter = &JSONFormatter{}
+	return log
 }
 
 func (logger *Logger) newEntry() *Entry {
