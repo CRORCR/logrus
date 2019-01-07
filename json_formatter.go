@@ -82,8 +82,12 @@ func (f *JSONFormatter) Format(entry *Entry) ([]byte, error) {
 	data[f.FieldMap.resolve(FieldKeyMsg)] = entry.Message
 	data[f.FieldMap.resolve(FieldKeyLevel)] = entry.Level.String()
 	if entry.HasCaller() {
-		data[f.FieldMap.resolve(FieldKeyFunc)] = entry.Caller.Function
+		/*函数调用 可选*/
+		//data[f.FieldMap.resolve(FieldKeyFunc)] = entry.Caller.Function
+		//fmt.Printf("key:%v value:%v\n",f.FieldMap.resolve(FieldKeyFunc),entry.Caller.Function)
+		/*文件 及 行号*/
 		data[f.FieldMap.resolve(FieldKeyFile)] = fmt.Sprintf("%s:%d", entry.Caller.File, entry.Caller.Line)
+		//fmt.Printf("key:%v value:%v\n",f.FieldMap.resolve(FieldKeyFile),fmt.Sprintf("%s : %d", entry.Caller.File, entry.Caller.Line))
 	}
 
 	var b *bytes.Buffer
