@@ -159,6 +159,7 @@ func (f *TextFormatter) Format(entry *Entry) ([]byte, error) {
 
 	f.terminalInitOnce.Do(func() { f.init(entry) })
 
+	/*日期格式 自己传递,否则就使用12小时时间*/
 	timestampFormat := f.TimestampFormat
 	if timestampFormat == "" {
 		timestampFormat = defaultTimestampFormat

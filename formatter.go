@@ -4,7 +4,7 @@ import "time"
 
 // Default key names for the default fields
 const (
-	defaultTimestampFormat = time.RFC3339
+	defaultTimestampFormat = time.Kitchen
 	FieldKeyMsg            = "msg"
 	FieldKeyLevel          = "level"
 	FieldKeyTime           = "time"
